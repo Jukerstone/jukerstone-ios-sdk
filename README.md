@@ -48,9 +48,47 @@ To use the SDK, you need:
 import SwiftUI
 import Jukerstone
 
-@StateObject private var playerSDK = JukerstoneSDK(jukerstoneId: "your-jukerstone-id", developerToken: "your-jukerstone-developer-token")
-
-playerSDK.player
+struct ContentView: View {
+    @StateObject private var playerSDK = JukerstoneSDK(jukerstoneId: "TvauQsMtXJSeZyLhRHj3RV8FjjH2", developerToken: "sk_ud7C9uUlpeyjedomEsmRDIPB4757922WDyVE")
+    
+    var body: some View {
+        VStack {
+            playerSDK.player
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Progress: \(playerSDK.progress, specifier: "%.1f")%")
+                Text("Current Time: \(playerSDK.currentTime, specifier: "%.2f")s")
+                Text("Duration: \(playerSDK.duration, specifier: "%.2f")s")
+            }
+            .font(.caption)
+            .foregroundColor(.gray)
+            
+            Divider()
+            
+            Button("Seek") {
+                playerSDK.seek(to: 0.5)
+            }
+            
+            Button("Play") {
+                let isrc = "GBAYE0601641"
+                playerSDK.playNow(isrc: isrc)
+            }
+            
+            Button("Pause") {
+                playerSDK.pause()
+            }
+            
+            Button("Resume") {
+                playerSDK.resume()
+            }
+            
+            Button("Stop") {
+                playerSDK.stop()
+            }
+        }
+        .padding()
+    }
+}
 ```
 ## 🎥 Play a Music Video
 

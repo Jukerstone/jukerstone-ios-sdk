@@ -19,6 +19,8 @@ public class JukerstoneSDK: ObservableObject {
             developerToken: developerToken
         )
     }
+    
+    private var updateTimer: Timer?
 
     public init(jukerstoneId: String, developerToken: String) {
         self.jukerstoneId = jukerstoneId
@@ -26,9 +28,9 @@ public class JukerstoneSDK: ObservableObject {
         
         updateTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
             guard let self = self else { return }
-            self.progress = self.sdk.progress
-            self.currentTime = self.sdk.currentTime
-            self.duration = self.sdk.duration
+            self.progress = self.progress
+            self.currentTime = self.currentTime
+            self.duration = self.duration
         }
 
 

@@ -1,7 +1,7 @@
 import Foundation
 import JukerstoneSDK
 
-public class SDKWrapper: ObservableObject {
+public class JukerstoneSDK: ObservableObject {
     private let playerSDK = JukePodSDK()
     
     private let jukerstoneId: String

@@ -1,0 +1,6 @@
+framework module JukerstoneSDK {
+  umbrella header "JukerstoneSDK.h"
+  export *
+
+  module * { export * }
+}

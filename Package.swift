@@ -1,23 +1,29 @@
-// swift-tools-version: 5.10
-// The swift-tools-version declares the minimum version of Swift required to build this package.
-
+// swift-tools-version: 5.6
 import PackageDescription
 
 let package = Package(
     name: "Jukerstone",
+    platforms: [
+        .iOS(.v13)
+    ],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "Jukerstone",
-            targets: ["Jukerstone"]),
+            targets: ["Jukerstone"]
+        )
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
+        .binaryTarget(
+            name: "JukerstoneSDK",
+            path: "Sources/JukerstoneSDK.xcframework"
+        ),
         .target(
-            name: "Jukerstone"),
+            name: "Jukerstone",
+            dependencies: ["JukerstoneSDK"]
+        ),
         .testTarget(
             name: "JukerstoneTests",
-            dependencies: ["Jukerstone"]),
+            dependencies: ["Jukerstone"]
+        )
     ]
 )

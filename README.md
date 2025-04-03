@@ -46,19 +46,31 @@ To use the SDK, you need:
 
 ```swift
 import SwiftUI
-import Jukerstone
+import JukerstoneSDK
 
 struct ContentView: View {
-    @StateObject private var playerSDK = JukerstoneSDK(jukerstoneId: "TvauQsMtXJSeZyLhRHj3RV8FjjH2", developerToken: "sk_ud7C9uUlpeyjedomEsmRDIPB4757922WDyVE")
+    @StateObject private var sdk = JukePodSDK()
+    
+    private var JID: String = "TvauQsMtXJSeZyLhRHj3RV8FjjH2"
+    private var JDT: String = "sk_ud7C9uUlpeyjedomEsmRDIPB4757922WDyVE"
     
     var body: some View {
         VStack {
-            playerSDK.player
+            Jukerstone(
+                sdk: sdk,
+                jukerstoneId: JID,
+                developerToken: JDT
+            )
+            
+            Button("Play") {
+                let isrc = "GBAYE0601641"
+                sdk.playNow(isrc: isrc)
+            }
             
             VStack(alignment: .leading, spacing: 4) {
-                Text("Progress: \(playerSDK.progress, specifier: "%.1f")%")
-                Text("Current Time: \(playerSDK.currentTime, specifier: "%.2f")s")
-                Text("Duration: \(playerSDK.duration, specifier: "%.2f")s")
+                Text("Progress: \(sdk.progress, specifier: "%.1f")%")
+                Text("Current Time: \(sdk.currentTime, specifier: "%.2f")s")
+                Text("Duration: \(sdk.duration, specifier: "%.2f")s")
             }
             .font(.caption)
             .foregroundColor(.gray)
@@ -66,24 +78,30 @@ struct ContentView: View {
             Divider()
             
             Button("Seek") {
-                playerSDK.seek(to: 0.5)
-            }
-            
-            Button("Play") {
-                let isrc = "GBAYE0601641"
-                playerSDK.playNow(isrc: isrc)
+                sdk.seek(percentage: 0.5)
             }
             
             Button("Pause") {
-                playerSDK.pause()
+                sdk.pause()
             }
             
             Button("Resume") {
-                playerSDK.resume()
+                sdk.resume()
             }
             
             Button("Stop") {
-                playerSDK.stop()
+                sdk.stop()
+            }
+        }
+        .onAppear {
+            sdk.onVideoEnd = {
+                print("✅ [SDK] Video ended callback triggered")
+            }
+            sdk.onNext = {
+                print("✅ [SDK] Control panel next callback triggered")
+            }
+            sdk.onPrevious = {
+                print("✅ [SDK] Control panel previous callback triggered")
             }
         }
         .padding()
@@ -113,7 +131,7 @@ playerSDK.seek(percentage: 0.25)
 
 ## 📡 Event Hooks
 ```swift
-playerSDK.onEnd = { 
+playerSDK.onVideoEnd = { 
   // Playback finished
 }
 

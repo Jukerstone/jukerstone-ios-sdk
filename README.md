@@ -46,21 +46,18 @@ To use the SDK, you need:
 
 ```swift
 import SwiftUI
-import juke_now_sdk
+import Jukerstone
 
-@StateObject var playerSDK = JukePodSDK()
+@StateObject private var playerSDK = JukerstoneSDK(jukerstoneId: "your-jukerstone-id", developerToken: "your-jukerstone-developer-token")
 
-JukerstoneSDK(
-  sdk: playerSDK,
-  jukerstoneId: "your-JID",
-  developerToken: "your-JDT"
-)
-.frame(height: 1)
+playerSDK.player
 ```
 ## 🎥 Play a Music Video
 
 ```swift
-playerSDK.playNow(isrc: "USUM72309786")
+Button("Play Track") {
+    playerSDK.playNow(isrc: "USSM19922502")
+}
 ```
 
 - Requires a valid ISRC

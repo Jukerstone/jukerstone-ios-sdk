@@ -12,7 +12,7 @@ public class JukerstoneSDK: ObservableObject {
     @Published public private(set) var currentTime: Double = 0.0
     @Published public private(set) var duration: Double = 0.0
 
-    public var view: Jukerstone {
+    public var player: Jukerstone {
         Jukerstone(
             sdk: playerSDK,
             jukerstoneId: jukerstoneId,

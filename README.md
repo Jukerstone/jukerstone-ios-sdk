@@ -51,8 +51,8 @@ import JukerstoneSDK
 struct ContentView: View {
     @StateObject private var sdk = JukePodSDK()
     
-    private var JID: String = "TvauQsMtXJSeZyLhRHj3RV8FjjH2"
-    private var JDT: String = "sk_ud7C9uUlpeyjedomEsmRDIPB4757922WDyVE"
+    private var JID: String = "your-jukerstone-id"
+    private var JDT: String = "your-jukerstone-developer-token"
     
     var body: some View {
         VStack {
